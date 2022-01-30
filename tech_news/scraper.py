@@ -21,12 +21,14 @@ def fetch(url):
 
 def scrape_novidades(html_content):
     sel = Selector(html_content)
+
     return sel.css("div.tec--card__info > h3 > a::attr(href)").getall()
 
 
-# Requisito 3
 def scrape_next_page_link(html_content):
-    """Seu código deve vir aqui"""
+    sel = Selector(html_content)
+
+    return sel.css(".tec--btn--lg::attr(href)").get()
 
 
 # Requisito 4
