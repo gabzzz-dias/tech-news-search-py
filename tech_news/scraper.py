@@ -1,12 +1,13 @@
 import requests
 import time
 from parsel import Selector
-from tech_news.database import create_news
+# from tech_news.database import create_news
 
-def fetch(link):
+
+def fetch(url):
     time.sleep(1)
     try:
-        resp = requests.get(link, timeout=3)
+        resp = requests.get(url, timeout=3)
         resp.raise_for_status()
 
     except requests.HTTPError:
@@ -18,9 +19,8 @@ def fetch(link):
     return resp.text
 
 
-# Requisito 2
 def scrape_novidades(html_content):
-    """Seu código deve vir aqui"""
+    return Selector.css("div.tec--card__info > h3 > a::attr(href)").getall()
 
 
 # Requisito 3
