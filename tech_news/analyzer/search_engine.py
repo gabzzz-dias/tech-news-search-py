@@ -1,5 +1,5 @@
 from tech_news.database import find_news
-# import datetime
+import datetime
 
 
 def search_by_title(title):
@@ -13,16 +13,46 @@ def search_by_title(title):
     return result
 
 
-# Requisito 7
 def search_by_date(date):
-    """Seu código deve vir aqui"""
+    data = find_news()
+    result = []
+
+    try:
+        datetime.date.fromisoformat(date)
+
+        for new in data:
+            if new['timestamp'][0:10] == date:
+                result.append((new['title'], new['url']))
+
+        return result
+
+    except ValueError:
+        raise ValueError("Data inválida")
 
 
-# Requisito 8
 def search_by_source(source):
-    """Seu código deve vir aqui"""
+    data = find_news()
+    result = []
+
+    for new in data:
+        for x in range(len(new['sources'])):
+            new['sources'][x] = new['sources'][x].lower()
+
+        if source.lower() in new['sources']:
+            result.append((new['title'], new['url']))
+
+    return result
 
 
-# Requisito 9
 def search_by_category(category):
-    """Seu código deve vir aqui"""
+    data = find_news()
+    result = []
+
+    for new in data:
+        for x in range(len(new['categories'])):
+            new['categories'][x] = new['categories'][x].lower()
+
+        if category.lower() in new['categories']:
+            result.append((new['title'], new['url']))
+
+    return result
