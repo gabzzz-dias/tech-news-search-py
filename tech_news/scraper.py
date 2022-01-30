@@ -1,6 +1,21 @@
-# Requisito 1
-def fetch(url):
-    """Seu código deve vir aqui"""
+import requests
+import time
+from parsel import Selector
+from tech_news.database import create_news
+
+def fetch(link):
+    time.sleep(1)
+    try:
+        resp = requests.get(link, timeout=3)
+        resp.raise_for_status()
+
+    except requests.HTTPError:
+        return None
+
+    except requests.Timeout:
+        return None
+
+    return resp.text
 
 
 # Requisito 2
